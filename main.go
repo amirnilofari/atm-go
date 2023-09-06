@@ -27,18 +27,15 @@ func main() {
 		Withdrawal(amount)
 	}
 	if operation == 3 {
-		fmt.Println("Deposit")
+		var deposit_amount int
+		Deposit(deposit_amount)
 	}
 	if operation == 4 {
-		fmt.Println("Transfer")
+		var cardNumber string
+		var transferAmount int
+		Transfer(cardNumber, transferAmount)
 	}
-	// operations := []string{"Balance", "Withdraw", "Deposit", "Transfer"}
-	// b := operations[1]
-	// fmt.Printf("%T", b)
 
-	// if operations[1] == "Withdraw" {
-	// 	fmt.Println("Withdraw")
-	// }
 }
 
 func CheckPassword(pass int) {
@@ -70,4 +67,29 @@ func Withdrawal(amount int) {
 		fmt.Println("Your account balance is $" + strconv.Itoa(balance-amount))
 	}
 
+}
+
+func Deposit(amount int) {
+	fmt.Println("Enter the amount you want to deposit into your account:")
+	fmt.Scan(&amount)
+
+	fmt.Println("The amount of $" + strconv.Itoa(amount) + " added from your account")
+	fmt.Println("Your account balance is $" + strconv.Itoa(balance+amount))
+}
+
+func Transfer(card_number string, amount int) {
+	fmt.Println("Enter the 16-digit card number of the destination for money transfer:")
+	fmt.Scan(&card_number)
+	if len(card_number) != 16 {
+		fmt.Println("The entered card number is not valid.Please try again!")
+		os.Exit(0)
+	}
+	fmt.Println("Now enter the amount of money to transfer:")
+	fmt.Scan(&amount)
+	if amount > balance {
+		fmt.Println("The requested amount exceeds your account balance!")
+	} else {
+		fmt.Println("The amount of $" + strconv.Itoa(amount) + " was deducted from your account")
+		fmt.Println("Your account balance is $" + strconv.Itoa(balance-amount))
+	}
 }
